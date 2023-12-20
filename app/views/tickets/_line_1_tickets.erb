@@ -1,0 +1,14 @@
+<div class="new_tickets">
+  <p>Новые заявки:</p>
+  <% @only_new_tickets.each do |ticket| %>
+    <p style="border: 1px solid black; width: fit-content; margin-left: 10px; padding: 10px">
+      <b><%= ticket.title %></b>
+      <br>
+      <span><%= ticket.body %></span>
+      <br>
+      <span> Автор: ID: <%= ticket.account_id %> | Email: <%= ticket.account.email %> </span>
+      <br>
+      <span>Статус заявки: <%= ticket.status %></span>
+    </p>
+  <% end %>
+</div>

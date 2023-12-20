@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>HomeworkProject</title>
+    <title>
+      <% if account_signed_in? %>
+        <%= current_account.role.role_name %>
+      <% else %>
+        Helpdesk
+      <% end %>
+    </title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -13,10 +19,9 @@
   <body>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+    <hr>
 
-    <%= link_to 'Регистрация', new_account_registration_path %><br>
-    <%= link_to 'Войти', account_session_path %><br>
-    <%= button_to "Выйти", destroy_account_session_path, method: :delete %>
+    <%= render 'layouts/navbar' %>
 
     <%= yield %>
   </body>
