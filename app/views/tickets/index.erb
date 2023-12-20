@@ -1,4 +1,4 @@
-<% if @allowed_roles.include?(current_account.role_id) %>
+<% if @allowed_roles.include?(current_account.role.role_name) %>
   <%= render 'all_tickets_show' %>
   <% elsif current_account.role_id == 6 %>
     <p></p>
@@ -10,10 +10,10 @@
   <%= render 'line_1_tickets' %>
 <% end %>
 
-<% if current_account.role_id == 2 %>
-  <p></p>
-<% else %>
+<%if ['"Работник 1 линии', 'Работник 2 линии', 'Работник 3 линии', 'Клиент'].include?(current_account.role.role_name) %>
   <p>Ваши заявки: </p>
+<% else %>
+  <p></p>
 <% end %>
 
 <% current_account.ticket.each do |ticket| %>
@@ -22,6 +22,6 @@
     <br>
     <span><%= ticket.body %></span>
     <br>
-    <span>Статус заявки: <%= ticket.status %></span>
+    <span>Статус заявки: <%= ticket.ticket_status.status_name %></span>
   </p>
 <% end %>

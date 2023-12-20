@@ -1,14 +1,24 @@
-<div class="all_tickets-wrapper" style="border: 1px solid gray">
+<div class="all_tickets-wrapper">
   <p>Все заявки:</p>
   <% @all_tickets.each do |ticket| %>
-    <p style="border: 1px solid black; width: fit-content; margin-left: 10px; padding: 10px">
-      <b><%= ticket.title %></b>
+    <div style="width: fit-content; margin-left: 10px; padding: 10px; border: 1px solid black; margin-bottom: 10px;">
+      <b>№<%= ticket.id %> <%= ticket.title %></b>
       <br>
       <span><%= ticket.body %></span>
       <br>
+      <br>
+      <span>Создана: <%= ticket.created_at %></span>
+      <br>
+      <span>Обновлена: <%= ticket.updated_at %></span>
+      <br>
       <span> Автор: ID: <%= ticket.account_id %> | Email: <%= ticket.account.email %> </span>
       <br>
-      <span>Статус заявки: <%= ticket.status %></span>
-    </p>
+      <span>Статус заявки: <%= ticket.ticket_status.status_name %></span>
+
+      <%= form_with(model: ticket, local: true) do |form| %>
+        <%= form.collection_select :ticket_status_id, TicketStatus.all, :id, :status_name, prompt: "Выберите статус" %>
+        <%= form.submit 'Изменить статус' %>
+      <% end %>
+    </div>
   <% end %>
 </div>

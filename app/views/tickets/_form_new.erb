@@ -8,7 +8,7 @@
   <br>
   <br>
   <%= f.hidden_field :account_id, value: current_account.id %>
-  <%= f.hidden_field :status, value: 'Новая' %>
+  <%= f.hidden_field :ticket_status_id, value: TicketStatus.find_by(name: 'Новая')&.id %>
 
   <%= f.submit 'Create Ticket' %>
 <% end %>
