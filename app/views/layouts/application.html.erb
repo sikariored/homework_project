@@ -13,6 +13,11 @@
   <body>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+
+    <%= link_to 'Регистрация', new_account_registration_path %><br>
+    <%= link_to 'Войти', account_session_path %><br>
+    <%= button_to "Выйти", destroy_account_session_path, method: :delete %>
+
     <%= yield %>
   </body>
 </html>
