@@ -1,7 +1,7 @@
 <% if account_signed_in? %>
   Профиль: <%= current_account.email %> | <%= current_account.role.role_name %>
   <%= button_to 'Выйти', destroy_account_session_path, method: :delete %>
-  <%= link_to 'Все заявки', tickets_path %> <br>
+  <%= link_to 'Заявки', tickets_path %> <br>
   <% if current_account.role_id == 6 %>
     <%= link_to 'Создать заявку', new_ticket_path %>
   <% end %>

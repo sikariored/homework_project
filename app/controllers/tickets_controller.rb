@@ -1,9 +1,7 @@
 class TicketsController < ApplicationController
+  before_action :load_new_tickets, only: %i[index update]
   def index
-    allowed_roles = %w[Админ Менеджер]
-    @allowed_roles = allowed_roles
     @all_tickets = Ticket.all
-    @new_tickets = Ticket.where(ticket_status_id: TicketStatus.find_by(status_name: 'Новая')&.id)
   end
 
   def new
@@ -33,5 +31,9 @@ class TicketsController < ApplicationController
 
   def ticket_params
     params.require(:ticket).permit(:title, :body, :account_id, :ticket_status_id)
+  end
+
+  def load_new_tickets
+    @new_tickets = Ticket.where(ticket_status_id: TicketStatus.find_by(status_name: 'Новая')&.id)
   end
 end
