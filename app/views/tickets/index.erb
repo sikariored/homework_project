@@ -1,33 +1,7 @@
-<% if %w[Админ Менеджер].include?(current_account.role.role_name) %>
+<% if ['Работник 1 линии', 'Работник 2 линии', 'Работник 3 линии'].include?(current_account.role.role_name) %>
+  <%= render 'line_own_tickets' %>
+<% elsif ['Админ', 'Менеджер'].include?(current_account.role.role_name) %>
   <%= render 'all_tickets_show' %>
-  <% elsif current_account.role.role_name == 'Клиент' %>
-    <p></p>
-  <% else %>
-    <p>У вас недостаточно прав для просмотра всех заявок.</p>
-<% end %>
-
-<% if current_account.role.role_name == 'Работник 1 линии' %>
-  <%= render 'line_1_tickets' %>
-<% end %>
-
-<%if %w[Работник 1 линии, Работник 2 линии, Работник 3 линии, Клиент].include?(current_account.role.role_name) %>
-  <p>Ваши заявки: </p>
-<% else %>
-  <p></p>
-<% end %>
-
-<% current_account.ticket.each do |ticket| %>
-  <p style="border: 1px solid black; width: fit-content; padding-right: 100px;">
-    <b>№<%= ticket.id %> <%= ticket.title %></b>
-    <br>
-    <span><%= ticket.body %></span>
-    <br>
-    <br>
-    <span>Статус заявки: <%= ticket.ticket_status.status_name %></span>
-    <br>
-    <br>
-    <span>Создана: <%= ticket.created_at %></span>
-    <br>
-    <span>Обновлена: <%= ticket.updated_at %></span>
-  </p>
+<% elsif 'Клиент'.include?(current_account.role.role_name) %>
+  <%= render 'clients_tickets' %>
 <% end %>

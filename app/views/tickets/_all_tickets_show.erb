@@ -1,24 +1,163 @@
-<div class="all_tickets-wrapper">
-  <p>Все заявки:</p>
-  <% @all_tickets.each do |ticket| %>
-    <div style="width: fit-content; margin-left: 10px; padding: 10px; border: 1px solid black; margin-bottom: 10px;">
-      <b>№<%= ticket.id %> <%= ticket.title %></b>
-      <br>
-      <span><%= ticket.body %></span>
-      <br>
-      <br>
-      <span>Создана: <%= ticket.created_at %></span>
-      <br>
-      <span>Обновлена: <%= ticket.updated_at %></span>
-      <br>
-      <span> Автор: ID: <%= ticket.account_id %> | Email: <%= ticket.account.email %> </span>
-      <br>
-      <span>Статус заявки: <%= ticket.ticket_status.status_name %></span>
+<% if current_account.role.role_name == 'Менеджер' %>
+  <div class="all_new_and_working_tickets_wrapper">
+    <div class="all_new_tickets_wrapper tickets_container">
+      <% if @new_tickets.any? %>
+        <b>Новые заявки:</b>
+        <% @new_tickets.each do |ticket| %>
+          <div class="new_ticket_wrapper ticket_wrapper">
+            <b>Заявка №<%= ticket.id %> <br> <%= ticket.title %></b>
+            <br>
+            <br>
+            <span><%= ticket.body %></span>
+            <br>
+            <br>
+            <span> Клиент: ID: <%= ticket.account_id %> | Email: <%= ticket.account.email %> </span>
+            <br>
+            <span> Ответственный:
+              <% if ticket.responsible_id.present? %>
+              ID: <%= ticket.responsible_id %> | Email: <%= Account.find(ticket.responsible_id).email %>
+            <% else %>
+              Не назначен
+            <% end %>
+          </span>
+            <br>
+            <span>Статус заявки: <b><%= ticket.ticket_status.status_name %></b></span>
 
-      <%= form_with(model: ticket, local: true) do |form| %>
-        <%= form.collection_select :ticket_status_id, TicketStatus.all, :id, :status_name, prompt: "Выберите статус" %>
-        <%= form.submit 'Изменить статус' %>
+            <%= form_with(model: ticket, local: true) do |f| %>
+              Сменить
+              статус: <%= f.collection_select :ticket_status_id, TicketStatus.all, :id, :status_name, prompt: "Выберите статус" %>
+              <br>
+              Сменить
+              ответственного: <%= f.collection_select :responsible_id, @all_lines_accounts, :id, :email, prompt: 'Выберите ответственного' %>
+              <br>
+              <%= f.submit 'Обновить' %>
+            <% end %>
+            <br>
+            <span>Создана: <%= ticket.created_at %></span>
+            <br>
+            <span>Обновлена: <%= ticket.updated_at %></span>
+          </div>
+        <% end %>
+      <% else %>
+        <p>Новых заявок не обнаружено ╮(￣ω￣;)╭</p>
       <% end %>
     </div>
-  <% end %>
-</div>
+
+    <% if @in_work_tickets.any? %>
+      <div class="all_tickets_in_work_wrapper tickets_container">
+        <b>Заявки в работе:</b>
+        <% @in_work_tickets.each do |ticket| %>
+          <div class="ticket_in_work_wrapper ticket_wrapper">
+            <b>Заявка №<%= ticket.id %> <br> <%= ticket.title %></b>
+            <span><%= ticket.body %></span>
+            <span> Клиент: ID: <%= ticket.account_id %> | Email: <%= ticket.account.email %> </span>
+
+            <span> Ответственный:
+              <% if ticket.responsible_id.present? %>
+            ID: <%= ticket.responsible_id %> | Email: <%= Account.find(ticket.responsible_id).email %>
+          <% else %>
+            Не назначен
+          <% end %>
+        </span>
+            <span>Статус заявки: <b><%= ticket.ticket_status.status_name %></b></span>
+
+            <%= form_with(model: ticket, local: true) do |f| %>
+              Сменить
+              статус: <%= f.collection_select :ticket_status_id, TicketStatus.all, :id, :status_name, prompt: "Выберите статус" %>
+              <br>
+              Сменить
+              ответственного: <%= f.collection_select :responsible_id, @all_lines_accounts, :id, :email, prompt: 'Выберите ответственного' %>
+              <br>
+              <%= f.submit 'Обновить' %>
+            <% end %>
+            <span>Создана: <%= ticket.created_at %></span>
+            <span>Обновлена: <%= ticket.updated_at %></span>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="all_tickets_in_work_wrapper tickets_container">
+        <b>Заявок в работе не обнаружено ╮(￣ω￣;)╭</b>
+      </div>
+    <% end %>
+
+    <% if @on_verification_tickets.any? %>
+      <div class="all_tickets_on_verification_wrapper tickets_container">
+        <b>Заявки в работе:</b>
+        <% @on_verification_tickets.each do |ticket| %>
+          <div class="ticket_on_verification_wrapper ticket_wrapper">
+            <b>Заявка №<%= ticket.id %> <br> <%= ticket.title %></b>
+            <span><%= ticket.body %></span>
+            <span> Клиент: ID: <%= ticket.account_id %> | Email: <%= ticket.account.email %> </span>
+
+            <span> Ответственный:
+              <% if ticket.responsible_id.present? %>
+            ID: <%= ticket.responsible_id %> | Email: <%= Account.find(ticket.responsible_id).email %>
+          <% else %>
+            Не назначен
+          <% end %>
+        </span>
+            <span>Статус заявки: <b><%= ticket.ticket_status.status_name %></b></span>
+
+            <%= form_with(model: ticket, local: true) do |f| %>
+              Сменить
+              статус: <%= f.collection_select :ticket_status_id, TicketStatus.all, :id, :status_name, prompt: "Выберите статус" %>
+              <br>
+              Сменить
+              ответственного: <%= f.collection_select :responsible_id, @all_lines_accounts, :id, :email, prompt: 'Выберите ответственного' %>
+              <br>
+              <%= f.submit 'Обновить' %>
+            <% end %>
+            <span>Создана: <%= ticket.created_at %></span>
+            <span>Обновлена: <%= ticket.updated_at %></span>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="all_tickets_on_verification_wrapper tickets_container">
+        <b>Заявок на проверке обнаружено ╮(￣ω￣;)╭</b>
+      </div>
+    <% end %>
+
+    <% if @closed_tickets.any? %>
+      <div class="all_tickets_closed_wrapper tickets_container">
+        <b>Заявки в работе:</b>
+        <% @closed_tickets.each do |ticket| %>
+          <div class="ticket_closed_wrapper ticket_wrapper">
+            <b>Заявка №<%= ticket.id %> <br> <%= ticket.title %></b>
+            <span><%= ticket.body %></span>
+            <span> Клиент: ID: <%= ticket.account_id %> | Email: <%= ticket.account.email %> </span>
+
+            <span> Ответственный:
+              <% if ticket.responsible_id.present? %>
+            ID: <%= ticket.responsible_id %> | Email: <%= Account.find(ticket.responsible_id).email %>
+          <% else %>
+            Не назначен
+          <% end %>
+        </span>
+            <span>Статус заявки: <b><%= ticket.ticket_status.status_name %></b></span>
+
+            <%= form_with(model: ticket, local: true) do |f| %>
+              Сменить
+              статус: <%= f.collection_select :ticket_status_id, TicketStatus.all, :id, :status_name, prompt: "Выберите статус" %>
+              <br>
+              Сменить
+              ответственного: <%= f.collection_select :responsible_id, @all_lines_accounts, :id, :email, prompt: 'Выберите ответственного' %>
+              <br>
+              <%= f.submit 'Обновить' %>
+            <% end %>
+            <span>Создана: <%= ticket.created_at %></span>
+            <span>Обновлена: <%= ticket.updated_at %></span>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="all_tickets_closed_wrapper tickets_container">
+        <b>Закрытых заявок не обнаружено ╮(￣ω￣;)╭</b>
+      </div>
+    <% end %>
+
+
+
+  </div>
+<% end %>

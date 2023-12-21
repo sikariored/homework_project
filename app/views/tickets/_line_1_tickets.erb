@@ -8,10 +8,9 @@
         <span><%= ticket.body %></span>
         <br>
         <br>
-        <span> Автор: ID: <%= ticket.account_id %> | Email: <%= ticket.account.email %> </span>
+        <span> Клиент: ID: <%= ticket.account_id %> | Email: <%= ticket.account.email %> </span>
         <br>
         <br>
-
         <%= form_with(model: ticket, local: true) do |form| %>
           <span>Статус заявки: <%= form.collection_select :ticket_status_id, TicketStatus.all, :id, :status_name, prompt: "Выберите статус" %></span>
           <%= form.submit 'Изменить статус' %>
@@ -27,3 +26,27 @@
     <p>Новых заявок не обанружено ╮(￣ω￣;)╭</p>
   <% end %>
 
+<div class="own_tickets">
+    <p>Ваши заявки: </p>
+    <% own_tickets = Ticket.where(responsible_id: current_account.id) %>
+    <% own_tickets.each do |ticket| %>
+    <div style="width: fit-content; margin-left: 10px; padding: 10px; border: 1px solid black; margin-bottom: 10px;">
+      <b>Заявка №<%= ticket.id %> <br> <%= ticket.title %></b>
+      <br>
+      <br>
+      <span><%= ticket.body %></span>
+      <br>
+      <br>
+      <span> Клиент: ID: <%= ticket.account_id %> | Email: <%= ticket.account.email %> </span>
+      <br>
+      <%= form_with(model: ticket, local: true) do |form| %>
+        <span>Статус заявки: <%= form.collection_select :ticket_status_id, TicketStatus.all, :id, :status_name, prompt: "Выберите статус" %></span>
+        <%= form.submit 'Изменить статус' %>
+      <% end %>
+      <br>
+      <span>Создана: <%= ticket.created_at %></span>
+      <br>
+      <span>Обновлена: <%= ticket.updated_at %></span>
+    </div>
+  <% end %>
+</div>

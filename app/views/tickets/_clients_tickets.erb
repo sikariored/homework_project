@@ -1,0 +1,19 @@
+<br>
+<b>Ваши заявки</b>
+<div class="own_tickets_wrapper">
+  <% current_account.ticket.each do |ticket| %>
+    <div class="own_ticket">
+      <b>Заявка №<%= ticket.id %> <br> <%= ticket.title %></b>
+      <br>
+      <span><%= ticket.body %></span>
+      <br>
+      <br>
+      <span>Статус заявки: <%= ticket.ticket_status.status_name %></span>
+      <br>
+      <br>
+      <span>Создана: <%= ticket.created_at %></span>
+      <br>
+      <span>Обновлена: <%= ticket.updated_at %></span>
+    </div>
+  <% end %>
+</div>
