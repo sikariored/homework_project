@@ -1,5 +1,5 @@
 <% if current_account.role.role_name == 'Менеджер' %>
-  <div class="all_new_and_working_tickets_wrapper">
+  <div class="all_tickets_wrapper">
     <div class="all_new_tickets_wrapper tickets_container">
       <% if @new_tickets.any? %>
         <b>Новые заявки:</b>
@@ -83,7 +83,7 @@
 
     <% if @on_verification_tickets.any? %>
       <div class="all_tickets_on_verification_wrapper tickets_container">
-        <b>Заявки в работе:</b>
+        <b>Заявки на проверке у клиента:</b>
         <% @on_verification_tickets.each do |ticket| %>
           <div class="ticket_on_verification_wrapper ticket_wrapper">
             <b>Заявка №<%= ticket.id %> <br> <%= ticket.title %></b>
@@ -121,7 +121,7 @@
 
     <% if @closed_tickets.any? %>
       <div class="all_tickets_closed_wrapper tickets_container">
-        <b>Заявки в работе:</b>
+        <b>Закрытые зявки:</b>
         <% @closed_tickets.each do |ticket| %>
           <div class="ticket_closed_wrapper ticket_wrapper">
             <b>Заявка №<%= ticket.id %> <br> <%= ticket.title %></b>

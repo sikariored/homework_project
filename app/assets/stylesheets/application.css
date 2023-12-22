@@ -127,6 +127,13 @@ body {
     justify-content: space-between;
 }
 
+.all_tickets_wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    box-sizing: border-box;
+}
+
 .all_tickets_on_verification_wrapper:hover {
     background-color: rgba(85, 249, 255, 0.62);
 }
@@ -167,7 +174,7 @@ body {
 
 .own_tickets_wrapper {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
     gap: 15px;
     width: 100%;
