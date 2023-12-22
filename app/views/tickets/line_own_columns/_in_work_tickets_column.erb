@@ -1,0 +1,20 @@
+<div class="all_tickets_in_work_wrapper tickets_container">
+  <% if @own_account_tickets.any? %>
+    <b>Ваши заявки: </b>
+    <% @own_account_tickets.where(ticket_status_id: 2).each do |ticket| %>
+      <div class="ticket_in_work_wrapper ticket_wrapper">
+        <b>Заявка №<%= ticket.id %> <br> <%= ticket.title %></b>
+        <div class="ticket_body"><%= ticket.body %></div>
+        <span> Клиент: ID: <%= ticket.account_id %> | Email: <%= ticket.account.email %> </span>
+        <%= form_with(model: ticket, local: true) do |form| %>
+          <span>Статус заявки: <%= form.collection_select :ticket_status_id, TicketStatus.all, :id, :status_name, prompt: "Выберите статус" %></span>
+          <%= form.submit 'Изменить статус' %>
+        <% end %>
+        <span>Создана: <%= ticket.created_at %></span>
+        <span>Обновлена: <%= ticket.updated_at %></span>
+      </div>
+    <% end %>
+  <% else %>
+    <b>У вас нет заявок в работе ╮(￣ω￣;)╭</b>
+  <% end %>
+</div>

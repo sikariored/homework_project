@@ -1,0 +1,26 @@
+<% if @on_verification_tickets.any? %>
+  <div class="all_tickets_on_verification_wrapper tickets_container">
+    <b>Заявки на проверке у клиента:</b>
+    <% @own_account_tickets.where(ticket_status_id: 3).each do |ticket| %>
+      <div class="ticket_on_verification_wrapper ticket_wrapper">
+        <b>Заявка №<%= ticket.id %> <br> <%= ticket.title %></b>
+        <div class="ticket_body"><%= ticket.body %></div>
+        <span> Клиент: ID: <%= ticket.account_id %> | Email: <%= ticket.account.email %> </span>
+        <span>Статус заявки: <b><%= ticket.ticket_status.status_name %></b></span>
+
+        <%= form_with(model: ticket, local: true) do |f| %>
+          Сменить
+          статус: <%= f.collection_select :ticket_status_id, TicketStatus.all, :id, :status_name, prompt: "Выберите статус" %>
+          <br>
+          <%= f.submit 'Обновить' %>
+        <% end %>
+        <span>Создана: <%= ticket.created_at %></span>
+        <span>Обновлена: <%= ticket.updated_at %></span>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="all_tickets_on_verification_wrapper tickets_container">
+    <b>Заявок на проверке обнаружено ╮(￣ω￣;)╭</b>
+  </div>
+<% end %>

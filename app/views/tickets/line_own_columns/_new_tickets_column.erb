@@ -1,0 +1,34 @@
+
+<% if @new_tickets.any? %>
+  <% @new_tickets.each do |ticket| %>
+    <div class="all_new_tickets_wrapper tickets_container">
+        <b>Новые заявки:</b>
+          <div class="new_ticket_wrapper ticket_wrapper">
+            <b>Заявка №<%= ticket.id %> <br> <%= ticket.title %></b>
+            <div class="ticket_body"><%= ticket.body %></div>
+            <span> Клиент: ID: <b><%= ticket.account_id %></b> | Email: <b><%= ticket.account.email %></b> </span>
+            <br>
+            <span> Ответственный:
+              <% if ticket.responsible_id.present? %>
+              ID: <%= ticket.responsible_id %> | Email: <%= Account.find(ticket.responsible_id).email %>
+            <% else %>
+              Не назначен
+            <% end %>
+          </span>
+            <br>
+            <span>Создана: <%= ticket.created_at %></span>
+            <br>
+            <span>Обновлена: <%= ticket.updated_at %></span>
+            <%= form_with(model: ticket, local: true) do |form| %>
+              <%= form.hidden_field :responsible_id, value: current_account.id %>
+              <%= form.hidden_field :ticket_status_id, value: 2 %>
+              <%= form.submit 'В работу' %>
+              <% end %>
+          </div>
+    </div>
+  <% end %>
+<% else %>
+  <div class = "all_new_tickets_wrapper tickets_container">
+    <b>Новых заявок не обанружено ╮(￣ω￣;)╭ </b>
+  </div>
+<% end %>
