@@ -8,6 +8,7 @@ class TicketsController < ApplicationController
 
   def new
     @ticket = Ticket.new
+    @ticket_types = TicketType.pluck(:type_name)
   end
 
   def create
@@ -34,7 +35,7 @@ class TicketsController < ApplicationController
   private
 
   def ticket_params
-    params.require(:ticket).permit(:title, :body, :account_id, :ticket_status_id, :responsible_id)
+    params.require(:ticket).permit(:title, :body, :account_id, :ticket_status_id, :responsible_id, :ticket_type_id)
   end
 
   def load_new_tickets

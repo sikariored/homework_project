@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_21_075332) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_22_083158) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -53,17 +53,17 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_21_075332) do
     t.datetime "updated_at", null: false
     t.bigint "account_id", null: false
     t.bigint "ticket_status_id", default: 1, null: false
-    t.bigint "ticket_types_id", default: 3, null: false
     t.integer "responsible_id"
+    t.bigint "ticket_type_id", default: 1, null: false
     t.index ["account_id"], name: "index_tickets_on_account_id"
     t.index ["responsible_id"], name: "index_tickets_on_responsible_id"
     t.index ["ticket_status_id"], name: "index_tickets_on_ticket_status_id"
-    t.index ["ticket_types_id"], name: "index_tickets_on_ticket_types_id"
+    t.index ["ticket_type_id"], name: "index_tickets_on_ticket_type_id"
   end
 
   add_foreign_key "accounts", "roles"
   add_foreign_key "tickets", "accounts"
   add_foreign_key "tickets", "accounts", column: "responsible_id"
   add_foreign_key "tickets", "ticket_statuses"
-  add_foreign_key "tickets", "ticket_types", column: "ticket_types_id"
+  add_foreign_key "tickets", "ticket_types"
 end

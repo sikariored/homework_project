@@ -22,12 +22,16 @@
           </span>
             <br>
             <span>Статус заявки: <b><%= ticket.ticket_status.status_name %></b></span>
+            <br>
+            <span>Тип заявки: <b><%= ticket.ticket_type.type_name %></b></span>
 
             <%= form_with(model: ticket, local: true) do |f| %>
-              Сменить
-              статус: <%= f.collection_select :ticket_status_id, TicketStatus.all, :id, :status_name, prompt: "Выберите статус" %>
+              Сменить тип на <%= f.collection_select :ticket_type_id, TicketType.all, :id, :type_name, prompt: "Выберите тип заявки" %>
               <br>
               Сменить
+              статус на <%= f.collection_select :ticket_status_id, TicketStatus.all, :id, :status_name, prompt: "Выберите статус" %>
+              <br>
+              Установить
               ответственного: <%= f.collection_select :responsible_id, @all_lines_accounts, :id, :email, prompt: 'Выберите ответственного' %>
               <br>
               <%= f.submit 'Обновить' %>
@@ -39,7 +43,7 @@
           </div>
         <% end %>
       <% else %>
-        <p>Новых заявок не обнаружено ╮(￣ω￣;)╭</p>
+          <b>Новых заявок не обнаружено ╮(￣ω￣;)╭</b>
       <% end %>
     </div>
 

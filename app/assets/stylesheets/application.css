@@ -165,14 +165,14 @@ body {
     background-color: rgba(116, 255, 85, 0.62);
 }
 
-.all_tickets_closed_wrapper .ticket_closed_wrapper {
+.ticket_closed_wrapper {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 15px;
 }
 
-.own_tickets_wrapper {
+.client_tickets_wrapper {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -180,25 +180,25 @@ body {
     width: 100%;
 }
 
-.own_ticket {
+.client_ticket {
     background-color: #f2f2f2;
     padding: 10px;
     margin-bottom: 10px;
 }
 
-.own_ticket b {
+.client_ticket b {
     font-size: 18px;
     font-weight: bold;
 }
 
-.own_ticket span {
+.client_ticket span {
     font-size: 14px;
 }
 
-.own_ticket span:first-child {
+.client_ticket span:first-child {
     font-weight: bold;
 }
 
-.own_ticket span:nth-child(2) {
+.client_ticket span:nth-child(2) {
     margin-top: 5px;
 }
