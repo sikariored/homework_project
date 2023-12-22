@@ -9,10 +9,10 @@
         <span>Статус заявки: <b><%= ticket.ticket_status.status_name %></b></span>
         <span>Создана: <%= ticket.created_at %></span>
         <span>Обновлена: <%= ticket.updated_at %></span>
-        <%= form_with(model: ticket, local: true) do |form| %>
-          <%= form.hidden_field :ticket_status_id, value: 4 %>
-          <%= form.submit 'Завершить', class: 'btn btn-primary' %>
-        <% end %>
+        <%#= form_with(model: ticket, local: true) do |form| %>
+          <%#= form.hidden_field :ticket_status_id, value: 4 %>
+          <%#= form.submit 'Завершить', class: 'btn btn-primary' %>
+        <%# end %>
       </div>
     <% end %>
   </div>

@@ -113,6 +113,10 @@
             <span>Создана: <%= ticket.created_at %></span>
             <span>Обновлена: <%= ticket.updated_at %></span>
           </div>
+          <%= form_with(model: ticket, local: true) do |form| %>
+            <%= form.hidden_field :ticket_status_id, value: 4 %>
+            <%= form.submit 'Завершить', class: 'btn btn-primary' %>
+          <% end %>
         <% end %>
       </div>
     <% else %>
@@ -142,9 +146,6 @@
             <%= form_with(model: ticket, local: true) do |f| %>
               Сменить
               статус: <%= f.collection_select :ticket_status_id, TicketStatus.all, :id, :status_name, prompt: "Выберите статус" %>
-              <br>
-              Сменить
-              ответственного: <%= f.collection_select :responsible_id, @all_lines_accounts, :id, :email, prompt: 'Выберите ответственного' %>
               <br>
               <%= f.submit 'Обновить' %>
             <% end %>

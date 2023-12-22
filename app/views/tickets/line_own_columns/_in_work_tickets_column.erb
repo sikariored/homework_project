@@ -10,11 +10,20 @@
         <span>Тип заявки: <b><%= ticket.ticket_type.type_name %></b></span>
         <span>Создана: <%= formatted_time(ticket.created_at) %></span>
         <span>Обновлена: <%= formatted_time(ticket.updated_at) %></span>
-        <%= form_with(model: ticket, local: true) do |f| %>
-          <%= f.hidden_field :ticket_status_id, value: 2 %>
-          <%= f.collection_select :responsible_id, @all_1_line_accounts, :id, :email, prompt: 'Выберите ответственного' %>
-          <%= f.submit 'Отправить на 2 линию', class: 'btn btn-primary' %>
+        <% if current_account.role.role_name == 'Работник 1 линии' %>
+          <%= form_with(model: ticket, local: true) do |f| %>
+            <%= f.hidden_field :ticket_status_id, value: 2 %>
+            <%= f.collection_select :responsible_id, @all_2_line_accounts, :id, :email, prompt: 'Выберите ответственного' %>
+            <%= f.submit 'Отправить на 2 линию', class: 'btn btn-primary' %>
+          <% end %>
+          <% elsif current_account.role.role_name == 'Работник 2 линии' %>
+          <%= form_with(model: ticket, local: true) do |f1| %>
+          <%= f1.hidden_field :ticket_status_id, value: 2 %>
+          <%= f1.collection_select :responsible_id, @all_3_line_accounts, :id, :email, prompt: 'Выберите ответственного' %>
+          <%= f1.submit 'Отправить на 3 линию', class: 'btn btn-primary' %>
+          <% end %>
         <% end %>
+
         <br>
         <%= form_with(model: ticket, local: true) do |form| %>
           <%= form.hidden_field :ticket_status_id, value: 3 %>
