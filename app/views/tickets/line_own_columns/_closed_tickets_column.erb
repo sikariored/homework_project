@@ -1,0 +1,27 @@
+<% if @closed_tickets.any? %>
+  <div class="all_tickets_closed_wrapper tickets_container">
+    <b>Закрытые зявки:</b>
+    <% @closed_tickets.where(responsible_id: current_account.id).each do |ticket| %>
+      <div class="ticket_closed_wrapper ticket_wrapper">
+        <b>Заявка №<%= ticket.id %> <br> <%= ticket.title %></b>
+        <span><%= ticket.body %></span>
+        <span> Клиент: ID: <%= ticket.account_id %> | Email: <%= ticket.account.email %> </span>
+        <span> Ответственный:
+          <% if ticket.responsible_id.present? %>
+            ID: <%= ticket.responsible_id %> | Email: <%= Account.find(ticket.responsible_id).email %>
+          <% else %>
+            Не назначен
+          <% end %>
+        </span>
+        <span>Тип заявки: <b><%= ticket.ticket_type.type_name %></b></span>
+        <span>Статус заявки: <b><%= ticket.ticket_status.status_name %></b></span>
+        <span>Создана: <%= ticket.created_at %></span>
+        <span>Обновлена: <%= ticket.updated_at %></span>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="all_tickets_closed_wrapper tickets_container">
+    <b>Закрытых заявок не обнаружено ╮(￣ω￣;)╭</b>
+  </div>
+<% end %>

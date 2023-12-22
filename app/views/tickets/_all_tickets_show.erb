@@ -1,4 +1,4 @@
-<% if current_account.role.role_name == 'Менеджер' %>
+<% if %w[Менеджер Админ].include?(current_account.role.role_name) %>
   <div class="all_tickets_wrapper">
     <div class="all_new_tickets_wrapper tickets_container">
       <% if @new_tickets.any? %>
@@ -8,9 +8,7 @@
             <b>Заявка №<%= ticket.id %> <br> <%= ticket.title %></b>
             <br>
             <br>
-            <span><%= ticket.body %></span>
-            <br>
-            <br>
+            <div class="ticket_body"><%= ticket.body %></div>
             <span> Клиент: ID: <%= ticket.account_id %> | Email: <%= ticket.account.email %> </span>
             <br>
             <span> Ответственный:
@@ -53,7 +51,7 @@
         <% @in_work_tickets.each do |ticket| %>
           <div class="ticket_in_work_wrapper ticket_wrapper">
             <b>Заявка №<%= ticket.id %> <br> <%= ticket.title %></b>
-            <span><%= ticket.body %></span>
+            <div class="ticket_body"><%= ticket.body %></div>
             <span> Клиент: ID: <%= ticket.account_id %> | Email: <%= ticket.account.email %> </span>
 
             <span> Ответственный:
@@ -91,7 +89,7 @@
         <% @on_verification_tickets.each do |ticket| %>
           <div class="ticket_on_verification_wrapper ticket_wrapper">
             <b>Заявка №<%= ticket.id %> <br> <%= ticket.title %></b>
-            <span><%= ticket.body %></span>
+            <div class="ticket_body"><%= ticket.body %></div>
             <span> Клиент: ID: <%= ticket.account_id %> | Email: <%= ticket.account.email %> </span>
 
             <span> Ответственный:
@@ -129,7 +127,7 @@
         <% @closed_tickets.each do |ticket| %>
           <div class="ticket_closed_wrapper ticket_wrapper">
             <b>Заявка №<%= ticket.id %> <br> <%= ticket.title %></b>
-            <span><%= ticket.body %></span>
+            <div class="ticket_body"><%= ticket.body %></div>
             <span> Клиент: ID: <%= ticket.account_id %> | Email: <%= ticket.account.email %> </span>
 
             <span> Ответственный:
@@ -160,8 +158,5 @@
         <b>Закрытых заявок не обнаружено ╮(￣ω￣;)╭</b>
       </div>
     <% end %>
-
-
-
   </div>
 <% end %>

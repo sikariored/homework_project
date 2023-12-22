@@ -1,9 +1,8 @@
 class TicketsController < ApplicationController
   before_action :load_new_tickets, :load_in_work_tickets, :load_closed_tickets, :load_on_verification_tickets, :load_own_account_tickets, only: %i[index update]
-  before_action :load_all_lines_accounts, only: %i[index]
+  before_action :load_all_lines_accounts, :load_all_2_line_accounts, only: %i[index]
   def index
     @all_tickets = Ticket.all
-
   end
 
   def new
@@ -56,6 +55,10 @@ class TicketsController < ApplicationController
 
   def load_all_lines_accounts
     @all_lines_accounts = Account.where(role: Role.where(role_name: ['Работник 1 линии', 'Работник 2 линии', 'Работник 3 линии']))
+  end
+
+  def load_all_2_line_accounts
+    @all_1_line_accounts = Account.where(role: Role.where(role_name: 'Работник 2 линии'))
   end
 
   def load_own_account_tickets

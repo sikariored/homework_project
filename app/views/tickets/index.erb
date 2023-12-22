@@ -1,6 +1,6 @@
 <% if ['Работник 1 линии', 'Работник 2 линии', 'Работник 3 линии'].include?(current_account.role.role_name) %>
   <%= render 'line_own_tickets' %>
-<% elsif ['Админ', 'Менеджер'].include?(current_account.role.role_name) %>
+<% elsif %w[Админ Менеджер].include?(current_account.role.role_name) %>
   <%= render 'all_tickets_show' %>
 <% elsif 'Клиент'.include?(current_account.role.role_name) %>
   <%= render 'clients_tickets' %>

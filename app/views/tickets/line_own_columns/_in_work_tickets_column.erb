@@ -1,17 +1,25 @@
 <div class="all_tickets_in_work_wrapper tickets_container">
   <% if @own_account_tickets.any? %>
-    <b>Ваши заявки: </b>
+    <b>Заявки в работе: </b>
     <% @own_account_tickets.where(ticket_status_id: 2).each do |ticket| %>
       <div class="ticket_in_work_wrapper ticket_wrapper">
         <b>Заявка №<%= ticket.id %> <br> <%= ticket.title %></b>
         <div class="ticket_body"><%= ticket.body %></div>
         <span> Клиент: ID: <%= ticket.account_id %> | Email: <%= ticket.account.email %> </span>
-        <%= form_with(model: ticket, local: true) do |form| %>
-          <span>Статус заявки: <%= form.collection_select :ticket_status_id, TicketStatus.all, :id, :status_name, prompt: "Выберите статус" %></span>
-          <%= form.submit 'Изменить статус' %>
+        <span>Статус: <b><%= ticket.ticket_status.status_name %></b></span>
+        <span>Тип заявки: <b><%= ticket.ticket_type.type_name %></b></span>
+        <span>Создана: <%= formatted_time(ticket.created_at) %></span>
+        <span>Обновлена: <%= formatted_time(ticket.updated_at) %></span>
+        <%= form_with(model: ticket, local: true) do |f| %>
+          <%= f.hidden_field :ticket_status_id, value: 2 %>
+          <%= f.collection_select :responsible_id, @all_1_line_accounts, :id, :email, prompt: 'Выберите ответственного' %>
+          <%= f.submit 'Отправить на 2 линию', class: 'btn btn-primary' %>
         <% end %>
-        <span>Создана: <%= ticket.created_at %></span>
-        <span>Обновлена: <%= ticket.updated_at %></span>
+        <br>
+        <%= form_with(model: ticket, local: true) do |form| %>
+          <%= form.hidden_field :ticket_status_id, value: 3 %>
+          <%= form.submit 'Отправить на проверку', class: 'btn btn-primary' %>
+        <% end %>
       </div>
     <% end %>
   <% else %>

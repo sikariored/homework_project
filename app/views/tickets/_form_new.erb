@@ -1,21 +1,24 @@
-<%= form_for @ticket do |f| %>
-  <%= f.label :title, 'Заголовок' %>
-  <%= f.text_field :title %>
+<%= form_for @ticket, html: { class: 'ticket-form' } do |f| %>
+  <h2>Создание новой заявки</h2>
+  <div class="form-group">
+    <%= f.label :title, 'Заголовок', class: 'form-label' %>
+    <%= f.text_field :title, class: 'form-control' %>
+  </div>
   <br>
   <br>
-  <%= f.label :body, 'Описание проблемы' %>
-  <%= f.text_area :body, size: '30x5' %>
+  <div class="form-group">
+    <%= f.label :body, 'Описание проблемы', class: 'form-label' %>
+    <%= f.text_area :body, size: '30x5', class: 'form-control' %>
+  </div>
   <br>
-  <%= f.label :ticket_type_id, 'Тип заявки' %>
-
-
-  <%= f.collection_select :ticket_type_id, TicketType.all, :id, :type_name, prompt: "Выберите тип заявки" %>
-
-
+  <div class="form-group">
+    <%= f.label :ticket_type_id, 'Тип заявки', class: 'form-label' %>
+    <%= f.collection_select :ticket_type_id, TicketType.all, :id, :type_name, { prompt: "Выберите тип заявки" }, class: 'form-control' %>
+  </div>
   <br>
-  <br>
-  <%= f.hidden_field :account_id, value: current_account.id %>
-  <%= f.hidden_field :ticket_status_id, value: TicketStatus.find_by(status_name: 'Новая')&.id %>
-
-  <%= f.submit 'Создать заявку' %>
+  <div class="form-group">
+    <%= f.hidden_field :account_id, value: current_account.id %>
+    <%= f.hidden_field :ticket_status_id, value: TicketStatus.find_by(status_name: 'Новая')&.id %>
+    <%= f.submit 'Создать заявку', class: 'btn btn-primary' %>
+  </div>
 <% end %>
