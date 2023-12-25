@@ -314,3 +314,39 @@ body {
     width: auto;
     padding: 10px 20px;
 }
+
+.all_tasks_wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.ticket_tasks_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    width: 100%;
+    margin-top: 10px;
+    background-color: rgba(0, 123, 255, 0.32);
+    border-radius: 10px;
+}
+
+.ticket_task {
+    display: flex;
+    padding: 10px;
+    margin: 10px;
+    background-color: #f17d7d75;
+    width: 90%;
+    border-radius: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.ticket_task_body {
+    display: flex;
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 10px;
+    flex-wrap: wrap;
+}

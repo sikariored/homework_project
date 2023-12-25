@@ -2,9 +2,13 @@
   <div class="navbar">
     Профиль: <%= current_account.email %> | <%= current_account.role.role_name %>
     <%= button_to 'Выйти', destroy_account_session_path, method: :delete %>
-    <%= link_to 'Заявки', tickets_path %> <br>
-    <% if current_account.role_id == 6 %>
+    <%= link_to 'Заявки', tickets_path %>
+    <% if current_account.role.role_name == "Клиент" %>
       <%= link_to 'Создать заявку', new_ticket_path %>
+    <% end %>
+    <% if ["Работник 1 линии", "Работник 2 линии", "Работник 3 линии", "Администратор", "Менеджер"].include?(current_account.role.role_name) %>
+      <%= link_to 'Создать задачу', new_ticket_task_path %>
+      <%= link_to 'Мои задачи', ticket_tasks_path %>
     <% end %>
   </div>
 <% else %>

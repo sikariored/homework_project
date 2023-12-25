@@ -27,7 +27,7 @@ class TicketsController < ApplicationController
       flash[:notice] = "Заявка обновлена"
     else
       redirect_to tickets_path
-      flash[:notice] = "Ошибка при изменении статуса заявки"
+      flash[:alert] = "Ошибка при изменении статуса заявки"
     end
   end
 

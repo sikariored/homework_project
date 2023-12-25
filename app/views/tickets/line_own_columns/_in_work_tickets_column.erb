@@ -29,6 +29,25 @@
           <%= form.hidden_field :ticket_status_id, value: 3 %>
           <%= form.submit 'Отправить на проверку', class: 'btn btn-primary' %>
         <% end %>
+
+        <div class="ticket_tasks_wrapper">
+          <details>
+            <summary>Задачи:</summary>
+                  <% if ticket.ticket_tasks.any? %>
+                        <% ticket.ticket_tasks.each do |task| %>
+                          <div class="ticket_task">
+                            <b>Задача № <%= task.id %> <br> <%= task.title %></b>
+                            <span>ОТ: <%= Account.find(task.assigner_id).email %></span>
+                            <div class="ticket_task_body">
+                              <b>Подробности:</b>
+                              <%= task.description %>
+                            </div>
+                            <span>Создана: <%= formatted_time(task.created_at) %></span>
+                          </div>
+                        <% end %>
+                  <% end %>
+          </details>
+        </div>
       </div>
     <% end %>
   <% else %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_25_130550) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_25_135440) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -34,15 +34,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_25_130550) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "ticket_assignments", force: :cascade do |t|
-    t.string "assignment_title"
-    t.string "assignment_body"
-    t.string "assignment_from"
-    t.string "assignment_to"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "ticket_statuses", force: :cascade do |t|
     t.string "status_name"
     t.datetime "created_at", null: false
@@ -55,6 +46,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_25_130550) do
     t.bigint "ticket_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "assigner_id"
+    t.bigint "executor_id"
+    t.index ["assigner_id"], name: "index_ticket_tasks_on_assigner_id"
+    t.index ["executor_id"], name: "index_ticket_tasks_on_executor_id"
     t.index ["ticket_id"], name: "index_ticket_tasks_on_ticket_id"
   end
 
@@ -73,19 +68,18 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_25_130550) do
     t.bigint "ticket_status_id", default: 1, null: false
     t.bigint "responsible_id"
     t.bigint "ticket_type_id", default: 1, null: false
-    t.bigint "ticket_assignment_id"
     t.index ["account_id"], name: "index_tickets_on_account_id"
     t.index ["responsible_id"], name: "index_tickets_on_responsible_id"
-    t.index ["ticket_assignment_id"], name: "index_tickets_on_ticket_assignment_id"
     t.index ["ticket_status_id"], name: "index_tickets_on_ticket_status_id"
     t.index ["ticket_type_id"], name: "index_tickets_on_ticket_type_id"
   end
 
   add_foreign_key "accounts", "roles"
+  add_foreign_key "ticket_tasks", "accounts", column: "assigner_id"
+  add_foreign_key "ticket_tasks", "accounts", column: "executor_id"
   add_foreign_key "ticket_tasks", "tickets"
   add_foreign_key "tickets", "accounts"
   add_foreign_key "tickets", "accounts", column: "responsible_id"
-  add_foreign_key "tickets", "ticket_assignments"
   add_foreign_key "tickets", "ticket_statuses"
   add_foreign_key "tickets", "ticket_types"
 end
