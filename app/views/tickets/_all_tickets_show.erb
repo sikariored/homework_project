@@ -38,11 +38,36 @@
             <span>Создана: <%= ticket.created_at %></span>
             <br>
             <span>Обновлена: <%= ticket.updated_at %></span>
+
+            <div class="ticket_tasks_wrapper">
+              <details>
+                <summary>Поручения:</summary>
+                <% if ticket.ticket_tasks.any? %>
+                  <% ticket.ticket_tasks.each do |task| %>
+                    <div class="ticket_task">
+                      <b>Поручение № <%= task.id %> <br> <%= task.title %></b>
+                      <span>ОТ: <%= Account.find(task.assigner_id).email %></span>
+                      <span>КОМУ: <%= Account.find(task.executor_id).email %></span>
+                      <div class="ticket_task_body">
+                        <b>Подробности:</b>
+                        <%= task.description %>
+                      </div>
+                      <span>Создана: <%= formatted_time(task.created_at) %></span>
+                    </div>
+                  <% end %>
+                <% else %>
+                  <span>Поручений не обнаружено ╮(￣ω￣;)╭</span>
+                <% end %>
+              </details>
+            </div>
+
           </div>
         <% end %>
       <% else %>
           <b>Новых заявок не обнаружено ╮(￣ω￣;)╭</b>
       <% end %>
+
+
     </div>
 
     <% if @in_work_tickets.any? %>
@@ -77,11 +102,11 @@
 
             <div class="ticket_tasks_wrapper">
               <details>
-                <summary>Задачи:</summary>
+                <summary>Поручения:</summary>
                 <% if ticket.ticket_tasks.any? %>
                   <% ticket.ticket_tasks.each do |task| %>
                     <div class="ticket_task">
-                      <b>Задача № <%= task.id %> <br> <%= task.title %></b>
+                      <b>Поручение № <%= task.id %> <br> <%= task.title %></b>
                       <span>ОТ: <%= Account.find(task.assigner_id).email %></span>
                       <span>КОМУ: <%= Account.find(task.executor_id).email %></span>
                       <div class="ticket_task_body">
@@ -91,9 +116,13 @@
                       <span>Создана: <%= formatted_time(task.created_at) %></span>
                     </div>
                   <% end %>
+                <% else %>
+                  <span>Поручений не обнаружено ╮(￣ω￣;)╭</span>
                 <% end %>
               </details>
             </div>
+
+          </div>
           </div>
         <% end %>
       </div>
@@ -132,6 +161,29 @@
             <% end %>
             <span>Создана: <%= ticket.created_at %></span>
             <span>Обновлена: <%= ticket.updated_at %></span>
+
+            <div class="ticket_tasks_wrapper">
+              <details>
+                <summary>Поручения:</summary>
+                <% if ticket.ticket_tasks.any? %>
+                  <% ticket.ticket_tasks.each do |task| %>
+                    <div class="ticket_task">
+                      <b>Поручение № <%= task.id %> <br> <%= task.title %></b>
+                      <span>ОТ: <%= Account.find(task.assigner_id).email %></span>
+                      <span>КОМУ: <%= Account.find(task.executor_id).email %></span>
+                      <div class="ticket_task_body">
+                        <b>Подробности:</b>
+                        <%= task.description %>
+                      </div>
+                      <span>Создана: <%= formatted_time(task.created_at) %></span>
+                    </div>
+                  <% end %>
+                <% else %>
+                  <span>Поручений не обнаружено ╮(￣ω￣;)╭</span>
+                <% end %>
+              </details>
+            </div>
+
           </div>
           <%= form_with(model: ticket, local: true) do |form| %>
             <%= form.hidden_field :ticket_status_id, value: 4 %>
@@ -141,7 +193,7 @@
       </div>
     <% else %>
       <div class="all_tickets_on_verification_wrapper tickets_container">
-        <b>Заявок на проверке обнаружено ╮(￣ω￣;)╭</b>
+        <b>Заявок на проверке не обнаружено ╮(￣ω￣;)╭</b>
       </div>
     <% end %>
 
@@ -171,6 +223,29 @@
             <% end %>
             <span>Создана: <%= ticket.created_at %></span>
             <span>Обновлена: <%= ticket.updated_at %></span>
+
+            <div class="ticket_tasks_wrapper">
+              <details>
+                <summary>Поручения:</summary>
+                <% if ticket.ticket_tasks.any? %>
+                  <% ticket.ticket_tasks.each do |task| %>
+                    <div class="ticket_task">
+                      <b>Поручение № <%= task.id %> <br> <%= task.title %></b>
+                      <span>ОТ: <%= Account.find(task.assigner_id).email %></span>
+                      <span>КОМУ: <%= Account.find(task.executor_id).email %></span>
+                      <div class="ticket_task_body">
+                        <b>Подробности:</b>
+                        <%= task.description %>
+                      </div>
+                      <span>Создана: <%= formatted_time(task.created_at) %></span>
+                    </div>
+                  <% end %>
+                <% else %>
+                  <span>Поручений не обнаружено ╮(￣ω￣;)╭</span>
+                <% end %>
+              </details>
+            </div>
+
           </div>
         <% end %>
       </div>

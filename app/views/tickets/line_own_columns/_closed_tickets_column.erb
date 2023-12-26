@@ -17,6 +17,27 @@
         <span>Статус заявки: <b><%= ticket.ticket_status.status_name %></b></span>
         <span>Создана: <%= ticket.created_at %></span>
         <span>Обновлена: <%= ticket.updated_at %></span>
+
+        <div class="ticket_tasks_wrapper">
+          <details>
+            <summary>Поручения:</summary>
+            <% if ticket.ticket_tasks.any? %>
+              <% ticket.ticket_tasks.each do |task| %>
+                <div class="ticket_task">
+                  <b>Задача № <%= task.id %> <br> <%= task.title %></b>
+                  <span>ОТ: <%= Account.find(task.assigner_id).email %></span>
+                  <div class="ticket_task_body">
+                    <b>Подробности:</b>
+                    <%= task.description %>
+                  </div>
+                  <span>Создана: <%= formatted_time(task.created_at) %></span>
+                </div>
+              <% end %>
+            <% else %>
+              <span>Поручений не обнаружено ╮(￣ω￣;)╭</span>
+            <% end %>
+          </details>
+        </div>
       </div>
     <% end %>
   </div>

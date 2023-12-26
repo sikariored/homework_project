@@ -1,0 +1,29 @@
+<h2>Исходящие поручения</h2>
+<% @outer_tasks.each do |task| %>
+  <div class="ticket_task">
+    <b>Поручение №: <%= task.id %> <br> <%= task.title %></b>
+    <div class="ticket_wrapper">
+      <details>
+        <summary>Подробности заявки</summary>
+        <div class="ticket_title">
+          <b>Заявка № <%= task.ticket_id %></b>
+          <br>
+          <b><%= task.ticket.title %></b>
+        </div>
+        <div class="ticket_client">
+          <b>Клиент: <%= Account.find(task.ticket.account_id).email %></b>
+        </div>
+        <div class="ticket_body">
+          <%= task.ticket.body %>
+        </div>
+      </details>
+    </div>
+    <span>ОТ: <%= Account.find(task.assigner_id).email %></span>
+    <span>КОМУ: <%= Account.find(task.executor_id).email %></span>
+    <div class="ticket_task_body">
+      <b>Подробности:</b>
+      <%= task.description %>
+    </div>
+    <span>Создана: <%= formatted_time(task.created_at) %></span>
+  </div>
+<% end %>

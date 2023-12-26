@@ -317,7 +317,9 @@ body {
 
 .all_tasks_wrapper {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    margin-top: 50px;
+    gap: 20px;
 }
 
 .ticket_tasks_wrapper {
@@ -349,4 +351,23 @@ body {
     padding: 10px;
     border-radius: 10px;
     flex-wrap: wrap;
+    gap: 10px;
+}
+
+.inner_tasks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #71fffda1;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.outer_tasks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #abff8a;
+    padding: 10px;
 }

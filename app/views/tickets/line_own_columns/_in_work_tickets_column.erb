@@ -32,7 +32,7 @@
 
         <div class="ticket_tasks_wrapper">
           <details>
-            <summary>Задачи:</summary>
+            <summary>Поручения:</summary>
                   <% if ticket.ticket_tasks.any? %>
                         <% ticket.ticket_tasks.each do |task| %>
                           <div class="ticket_task">
@@ -45,6 +45,8 @@
                             <span>Создана: <%= formatted_time(task.created_at) %></span>
                           </div>
                         <% end %>
+                    <% else %>
+                      <span>Поручений не обнаружено ╮(￣ω￣;)╭</span>
                   <% end %>
           </details>
         </div>

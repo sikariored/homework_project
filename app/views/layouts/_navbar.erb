@@ -7,8 +7,8 @@
       <%= link_to 'Создать заявку', new_ticket_path %>
     <% end %>
     <% if ["Работник 1 линии", "Работник 2 линии", "Работник 3 линии", "Администратор", "Менеджер"].include?(current_account.role.role_name) %>
-      <%= link_to 'Создать задачу', new_ticket_task_path %>
-      <%= link_to 'Мои задачи', ticket_tasks_path %>
+      <%= link_to 'Создать поручение', new_ticket_task_path %>
+      <%= link_to 'Поручения', ticket_tasks_path %>
     <% end %>
   </div>
 <% else %>
