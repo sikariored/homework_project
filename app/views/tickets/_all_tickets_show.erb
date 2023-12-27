@@ -24,10 +24,12 @@
             <span>Тип заявки: <b><%= ticket.ticket_type.type_name %></b></span>
 
             <%= form_with(model: ticket, local: true) do |f| %>
-              Сменить тип на <%= f.collection_select :ticket_type_id, TicketType.all, :id, :type_name, prompt: "Выберите тип заявки" %>
+              Сменить тип
+              на <%= f.collection_select :ticket_type_id, TicketType.all, :id, :type_name, prompt: "Выберите тип заявки" %>
               <br>
               Сменить
-              статус на <%= f.collection_select :ticket_status_id, TicketStatus.all, :id, :status_name, prompt: "Выберите статус" %>
+              статус
+              на <%= f.collection_select :ticket_status_id, TicketStatus.all, :id, :status_name, prompt: "Выберите статус" %>
               <br>
               Установить
               ответственного: <%= f.collection_select :responsible_id, @all_lines_accounts, :id, :email, prompt: 'Выберите ответственного' %>
@@ -64,7 +66,7 @@
           </div>
         <% end %>
       <% else %>
-          <b>Новых заявок не обнаружено ╮(￣ω￣;)╭</b>
+        <b>Новых заявок не обнаружено ╮(￣ω￣;)╭</b>
       <% end %>
 
 
@@ -125,7 +127,6 @@
           </div>
           </div>
         <% end %>
-      </div>
     <% else %>
       <div class="all_tickets_in_work_wrapper tickets_container">
         <b>Заявок в работе не обнаружено ╮(￣ω￣;)╭</b>
@@ -256,3 +257,4 @@
     <% end %>
   </div>
 <% end %>
+
