@@ -20,9 +20,20 @@ class TicketTasksController < ApplicationController
     end
   end
 
+  def update
+    @ticket_task = TicketTask.find(params[:id])
+    if @ticket_task.update ticket_task_params
+      redirect_to tickets_path
+      flash[:notice] = "Статус поручения обновлён"
+    else
+      redirect_to tickets_path
+      flash[:alert] = "Ошибка при обновлении статуса поручения"
+    end
+  end
+
   private
 
   def ticket_task_params
-    params.require(:ticket_task).permit(:ticket_id, :title, :description, :assigner_id, :executor_id)
+    params.require(:ticket_task).permit(:ticket_id, :title, :description, :assigner_id, :executor_id, :task_status_id)
   end
 end

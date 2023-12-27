@@ -8,6 +8,17 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+# СОЗДАНИЕ РОЛЕЙ
+
+Role.create( role_name: "Администратор" ) #Роль Админ
+Role.create( role_name: "Менеджер" ) #Роль Менеджер
+Role.create( role_name: "Работник 1 линии" ) #Роль Работник 1 линии
+Role.create( role_name: "Работник 2 линии" ) #Роль Работник 2 линии
+Role.create( role_name: "Работник 3 линии" ) #Роль Работник 3 линии
+Role.create( role_name: "Клиент" ) #Роль Клиент
+
+# СОЗДАНИЕ АККАУНТОВ
+
 Account.create( email: "admin@mail.ru", role_id: 1, password: "123123" ) #Админ
 
 Account.create( email: "manager0@mail.ru", role_id: 2, password: "123123" ) #Менеджер
@@ -25,18 +36,22 @@ Account.create( email: "worker3-2@mail.ru", role_id: 5, password: "123123" ) #Р
 Account.create( email: "client0@mail.ru", role_id: 6, password: "123123" ) #Клиент
 Account.create( email: "client1@mail.ru", role_id: 6, password: "123123" ) #Клиент
 
-Role.create( role_name: "Администратор" ) #Роль Админ
-Role.create( role_name: "Менеджер" ) #Роль Менеджер
-Role.create( role_name: "Работник 1 линии" ) #Роль Работник 1 линии
-Role.create( role_name: "Работник 2 линии" ) #Роль Работник 2 линии
-Role.create( role_name: "Работник 3 линии" ) #Роль Работник 3 линии
-Role.create( role_name: "Клиент" ) #Роль Клиент
+# СОЗДАНИЕ СТАТУСОВ ЗАЯВОК
 
 TicketStatus.create( status_name: "Новая" ) #Статус Новая
 TicketStatus.create( status_name: "В работе" ) #Статус В работе
 TicketStatus.create( status_name: "Клиент проверяет" ) #Статус Клиент проверяет
 TicketStatus.create( status_name: "Закрыта" ) #Статус Закрыта
 
+# СОЗДАНИЕ ТИПОВ ЗАЯВОК
+
 TicketType.create( type_name: "Обычная" ) #Тип Обычная
 TicketType.create( type_name: "Плановая" ) #Тип Плановая
 TicketType.create( type_name: "Экстренная" ) #Тип Экстренная
+
+# СОЗДАНИЕ СТАТУСОВ ПОРУЧЕНИЙ
+
+TaskStatus.create( task_status_name: "Ожидание" ) #Статус поручения Ожидание
+TaskStatus.create( task_status_name: "В работе" ) #Статус поручения В работе
+TaskStatus.create( task_status_name: "Выполнено" ) #Статус поручения Выполнено
+TaskStatus.create( task_status_name: "Проблема" ) #Статус поручения Проблема

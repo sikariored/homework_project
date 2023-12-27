@@ -1,5 +1,6 @@
-<% if account_signed_in? %>
   <div class="navbar">
+
+<% if account_signed_in? %>
     Профиль: <%= current_account.email %> | <%= current_account.role.role_name %>
     <%= button_to 'Выйти', destroy_account_session_path, method: :delete %>
     <%= link_to 'Заявки', tickets_path %>
@@ -10,6 +11,8 @@
       <%= link_to 'Создать поручение', new_ticket_task_path %>
       <%= link_to 'Поручения', ticket_tasks_path %>
     <% end %>
+      <span class="notice"><%= notice %></span>
+      <span class="alert"><%= alert %></span>
   </div>
 <% else %>
   <%= link_to 'Регистрация', new_account_registration_path %><br>

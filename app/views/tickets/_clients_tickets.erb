@@ -1,34 +1,36 @@
-<b>Ваши заявки</b>
-<div class="client_tickets_wrapper">
-  <% current_account.ticket.each do |ticket| %>
-    <div class="client_ticket">
-      <b>Заявка №<%= ticket.id %> <br> <%= ticket.title %></b>
-
-      <span><%= ticket.body %></span>
-
-      <span>Тип заявки: <%= ticket.ticket_type.type_name %></span>
-      <br>
-      Сменить тип на:
-      <%= form_with(model: ticket, local: true) do |f| %>
-        <%= f.hidden_field :ticket_type_id, value: 1 %>
-        <%= f.submit 'Обычная', class:'btn btn-primary' %>
-      <% end %>
-      <%= form_with(model: ticket, local: true) do |f| %>
-        <%= f.hidden_field :ticket_type_id, value: 2 %>
-        <%= f.submit 'Плановая', class:'btn btn-warning' %>
-      <% end %>
-      <%= form_with(model: ticket, local: true) do |f| %>
-        <%= f.hidden_field :ticket_type_id, value: 3 %>
-        <%= f.submit 'Экстренная', class:'btn btn-danger' %>
-      <% end %>
-      <br>
-      <span>Статус заявки: <%= ticket.ticket_status.status_name %></span>
-      <span>Создана: <%= ticket.created_at %></span>
-      <span>Обновлена: <%= ticket.updated_at %></span>
-      <%= form_with(model: ticket, local: true) do |form| %>
-        <%= form.hidden_field :ticket_status_id, value: 4 %>
-        <%= form.submit 'Завершить', class: 'btn btn-primary' %>
-      <% end %>
-    </div>
-  <% end %>
-</div>
+<% if current_account.ticket.any? %>
+  <b>Ваши заявки</b>
+  <div class="client_tickets_wrapper">
+    <% current_account.ticket.each do |ticket| %>
+      <div class="client_ticket">
+        <b>Заявка №<%= ticket.id %> <br> <%= ticket.title %></b>
+        <span><%= ticket.body %></span>
+        <span>Тип заявки: <%= ticket.ticket_type.type_name %></span>
+        <br>
+        Сменить тип на:
+        <%= form_with(model: ticket, local: true) do |f| %>
+          <%= f.hidden_field :ticket_type_id, value: 1 %>
+          <%= f.submit 'Обычная', class:'btn btn-primary' %>
+        <% end %>
+        <%= form_with(model: ticket, local: true) do |f| %>
+          <%= f.hidden_field :ticket_type_id, value: 2 %>
+          <%= f.submit 'Плановая', class:'btn btn-warning' %>
+        <% end %>
+        <%= form_with(model: ticket, local: true) do |f| %>
+          <%= f.hidden_field :ticket_type_id, value: 3 %>
+          <%= f.submit 'Экстренная', class:'btn btn-danger' %>
+        <% end %>
+        <br>
+        <span>Статус заявки: <%= ticket.ticket_status.status_name %></span>
+        <span>Создана: <%= ticket.created_at %></span>
+        <span>Обновлена: <%= ticket.updated_at %></span>
+        <%= form_with(model: ticket, local: true) do |form| %>
+          <%= form.hidden_field :ticket_status_id, value: 4 %>
+          <%= form.submit 'Завершить', class: 'btn btn-primary' %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <b>У вас нет заявок ╮(￣ω￣;)╭</b>
+<% end %>

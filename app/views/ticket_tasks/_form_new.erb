@@ -1,6 +1,6 @@
 <%= form_for @ticket_task, html: { class: "ticket-task-form" } do |f|   %>
 
-  <h5>Создание нового поручения</h5>
+  <h2>Создание нового поручения</h2>
 
 
   <% if %w[Администратор Менеджер].include?(current_account.role.role_name) %>

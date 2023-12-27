@@ -26,6 +26,7 @@
                 <div class="ticket_task">
                   <b>Задача № <%= task.id %> <br> <%= task.title %></b>
                   <span>ОТ: <%= Account.find(task.assigner_id).email %></span>
+                  <span>КОМУ: <%= Account.find(task.executor_id).email %></span>
                   <div class="ticket_task_body">
                     <b>Подробности:</b>
                     <%= task.description %>
