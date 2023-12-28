@@ -1,9 +1,9 @@
 
 <% if @new_tickets.any? %>
   <% if current_account.role.role_name == 'Работник 1 линии' %>
-    <% @new_tickets.each do |ticket| %>
       <div class="all_new_tickets_wrapper tickets_container">
           <b>Новые заявки:</b>
+        <% @new_tickets.each do |ticket| %>
             <div class="new_ticket_wrapper ticket_wrapper">
               <b>Заявка №<%= ticket.id %> <br> <%= ticket.title %></b>
               <div class="ticket_body"><%= ticket.body %></div>
@@ -76,8 +76,8 @@
               </div>
 
             </div>
-      </div>
     <% end %>
+      </div>
     <% elsif current_account.role.role_name != 'Работник 1 линии' && @new_tickets.where(responsible_id: current_account.id).any? %>
     <% @new_tickets.where(responsible_id: current_account.id).each do |ticket| %>
       <div class="all_new_tickets_wrapper tickets_container">

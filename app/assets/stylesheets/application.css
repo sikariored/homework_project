@@ -193,6 +193,7 @@ body {
     flex-direction: column;
     align-items: flex-start;
     gap: 15px;
+    width: 25%;
 }
 
 .client_ticket b {
