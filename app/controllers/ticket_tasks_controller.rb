@@ -23,10 +23,10 @@ class TicketTasksController < ApplicationController
   def update
     @ticket_task = TicketTask.find(params[:id])
     if @ticket_task.update ticket_task_params
-      redirect_to tickets_path
+      redirect_to request.referer
       flash[:notice] = "Статус поручения обновлён"
     else
-      redirect_to tickets_path
+      redirect_to request.referer
       flash[:alert] = "Ошибка при обновлении статуса поручения"
     end
   end

@@ -48,25 +48,27 @@
                     <span>Создана: <%= formatted_time(task.created_at) %></span>
                     <span> Обновлена: <%= formatted_time(task.updated_at) %></span>
                     <span>Статус: <b> <%= task.task_status.task_status_name %> </b></span>
-                    <% if task.task_status.task_status_name == "Ожидание" %>
-                      <%= form_with(model: task, local: true) do |f| %>
-                        <%= f.hidden_field :task_status_id, value: 2 %>
-                        <%= f.submit 'В работу', class: 'btn btn-primary' %>
+                    <% if Account.find(task.executor_id) == current_account.id %>
+                      <% if task.task_status.task_status_name == "Ожидание" %>
+                        <%= form_with(model: task, local: true) do |f| %>
+                          <%= f.hidden_field :task_status_id, value: 2 %>
+                          <%= f.submit 'В работу', class: 'btn btn-primary' %>
+                        <% end %>
+                      <% elsif task.task_status.task_status_name == "В работе" %>
+                        <%= form_with(model: task, local: true) do |f| %>
+                          <%= f.hidden_field :task_status_id, value: 3 %>
+                          <%= f.submit 'Завершить', class: 'btn btn-primary' %>
+                        <% end %>
+                      <% elsif task.task_status.task_status_name == "Проблема" %>
+                        <%= form_with(model: task, local: true) do |f| %>
+                          <%= f.hidden_field :task_status_id, value: 3 %>
+                          <%= f.submit 'Завершить', class: 'btn btn-primary' %>
+                        <% end %>
                       <% end %>
-                    <% elsif task.task_status.task_status_name == "В работе" %>
                       <%= form_with(model: task, local: true) do |f| %>
-                        <%= f.hidden_field :task_status_id, value: 3 %>
-                        <%= f.submit 'Завершить', class: 'btn btn-primary' %>
+                        <%= f.hidden_field :task_status_id, value: 4 %>
+                        <%= f.submit 'Проблема', class: 'btn btn-danger' %>
                       <% end %>
-                    <% elsif task.task_status.task_status_name == "Проблема" %>
-                      <%= form_with(model: task, local: true) do |f| %>
-                        <%= f.hidden_field :task_status_id, value: 3 %>
-                        <%= f.submit 'Завершить', class: 'btn btn-primary' %>
-                      <% end %>
-                    <% end %>
-                    <%= form_with(model: task, local: true) do |f| %>
-                      <%= f.hidden_field :task_status_id, value: 4 %>
-                      <%= f.submit 'Проблема', class: 'btn btn-danger' %>
                     <% end %>
                   </details>
                 </div>

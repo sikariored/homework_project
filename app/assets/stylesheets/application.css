@@ -319,8 +319,10 @@ body {
 .all_tasks_wrapper {
     display: flex;
     flex-direction: row;
+    align-items: flex-start;
     margin-top: 50px;
     gap: 20px;
+    width: 100%;
 }
 
 .ticket_tasks_wrapper {
@@ -363,6 +365,7 @@ body {
     background-color: #71fffda1;
     border-radius: 10px;
     padding: 10px;
+    width: 45%;
 }
 
 .outer_tasks {
@@ -372,4 +375,5 @@ body {
     border-radius: 10px;
     background-color: #abff8a;
     padding: 10px;
+    width: 45%;
 }
